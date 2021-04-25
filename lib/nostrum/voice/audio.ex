@@ -72,7 +72,7 @@ defmodule Nostrum.Voice.Audio do
   def get_source(%VoiceState{ffmpeg_proc: ffmpeg_proc}), do: ffmpeg_proc.out
 
   def try_send_data(%VoiceState{} = voice, init?) do
-    wait = if(init?, do: Application.get_env(:nostrum, :audio_timeout, 20_000), else: 500)
+    wait = if(init?, do: Application.get_env(:nostrum, :audio_timeout, 20_000), else: 5000)
     {:ok, watchdog} = :timer.apply_after(wait, __MODULE__, :on_stall, [voice])
 
     {voice, done} =
